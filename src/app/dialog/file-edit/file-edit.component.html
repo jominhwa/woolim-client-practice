@@ -1,0 +1,22 @@
+<div>문서 수정</div>
+
+<form [formGroup]="editFileForm" novalidate>
+
+    <mat-form-field appearance="outline">
+        <mat-label>파일 제목</mat-label>
+        <input matInput formControlName="fileTitle" />
+        <mat-error *ngIf="editFileForm.controls['fileTitle'].hasError('required')">
+        제목을 입력해주세요.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>파일</mat-label>
+        <input matInput formControlName="file" />
+        <mat-error *ngIf="editFileForm.controls['file'].hasError('required')">
+        파일을 올려주세요.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="editFile()">문서 수정</button>
+</form>

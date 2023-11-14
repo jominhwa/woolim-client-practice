@@ -1,1 +1,111 @@
-<p>meeting-detail works!</p>
+<div>{{meetingTitle}}</div>
+<div>{{meetingDate | date: 'y년 MM월 d일 HH시 m분'}}</div>
+
+<button mat-flat-button>회의실 오픈</button>
+
+<div>
+    <div>회의록</div>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>회의록을 작성해주세요</mat-label>
+        <textarea matInput placeholder="Ex. 오늘 회의에서는 ..."></textarea>
+    </mat-form-field>
+</div>
+
+<div>
+    <div>문서</div>
+    <button mat-flat-button (click)="addFile();">문서 등록</button>
+
+    <table mat-table [dataSource]="fileDataSource">
+
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> 날짜 </th>
+            <td mat-cell *matCellDef="let element"> {{element?.createdAt | date: 'y.MM.dd'}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="fileTitle">
+        <th mat-header-cell *matHeaderCellDef> 제목 </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileTitle}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="download">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div>다운로드</div>
+                <!-- <div (click)="downloadFile()">다운로드</div> -->
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div (click)="editFile(element._id)">수정</div>
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div (click)="deleteFile(element._id)">삭제</div>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="fileColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: fileColumns;"></tr>
+        <tr *matNoDataRow>
+            <td colspan="9999">
+                No data
+            </td>
+        </tr>
+    
+    </table>
+</div>
+
+<div>
+    <div>투표</div>
+    <button mat-flat-button (click)="addVote();">투표 등록</button>
+
+    <table mat-table [dataSource]="voteDataSource">
+
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> 날짜 </th>
+            <td mat-cell *matCellDef="let element"> {{element?.createdAt | date: 'y.MM.dd'}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="voteTitle">
+        <th mat-header-cell *matHeaderCellDef> 제목 </th>
+        <td mat-cell *matCellDef="let element"> {{element.voteTitle}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="detail">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div>상세페이지</div>
+                <!-- <div (click)="detailVote()">상세페이지</div> -->
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div (click)="editVote(element._id)">수정</div>
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div (click)="deleteVote(element._id)">삭제</div>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="voteColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: voteColumns;"></tr>
+        <tr *matNoDataRow>
+            <td colspan="9999">
+                No data
+            </td>
+        </tr>
+    
+    </table>
+</div>

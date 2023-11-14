@@ -5,6 +5,30 @@ import * as moment from 'moment';
 import { MaterialsModule } from 'src/app/materials/materials.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+export interface Meeting {
+  _id: any;
+  meetingTitle: any;
+  meetingDate: any;
+}
+
+let meetingData: Meeting[] = [
+  {
+    _id: 0,
+    meetingTitle: '13회차 주간회의',
+    meetingDate: new Date('2023-11-05T10:00:00'),
+  },
+  {
+    _id: 1,
+    meetingTitle: '14회차 주간회의',
+    meetingDate: new Date('2023-11-13T11:00:00'),
+  },
+  {
+    _id: 2,
+    meetingTitle: '15회차 주간회의',
+    meetingDate: new Date('2023-11-15T16:00:00'),
+  },
+];
+
 @Component({
   selector: 'app-meeting-edit',
   standalone: true,
@@ -22,7 +46,7 @@ export class MeetingEditComponent {
     meetingDate: new FormControl(this.today, [Validators.required]),
     meetingHour: new FormControl(12),
     meetingMinute: new FormControl(0),
-    meetingAmPm: new FormControl('PM'),
+    meetingAmPm: new FormControl('오후'),
   });
 
   hourList = [
@@ -40,7 +64,7 @@ export class MeetingEditComponent {
     { value: 12 },
   ];
   minuteList = [{ value: 0 }, { value: 15 }, { value: 30 }, { value: 45 }];
-  am_pmList = [{ value: 'AM' }, { value: 'PM' }];
+  am_pmList = [{ value: '오전' }, { value: '오후' }];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -52,21 +76,21 @@ export class MeetingEditComponent {
   }
 
   getMeeting() {
-    if (this.data.meetingDate.getHours() > 12) {
+    if (meetingData[this.data].meetingDate.getHours() > 12) {
       this.editMeetingForm.patchValue({
-        meetingTitle: this.data.meetingTitle,
-        meetingDate: this.data.meetingDate,
-        meetingAmPm: 'PM',
-        meetingHour: this.data.meetingDate.getHours() - 12,
-        meetingMinute: this.data.meetingDate.getMinutes(),
+        meetingTitle: meetingData[this.data].meetingTitle,
+        meetingDate: meetingData[this.data].meetingDate,
+        meetingAmPm: '오후',
+        meetingHour: meetingData[this.data].meetingDate.getHours() - 12,
+        meetingMinute: meetingData[this.data].meetingDate.getMinutes(),
       });
     } else {
       this.editMeetingForm.patchValue({
-        meetingTitle: this.data.meetingTitle,
-        meetingDate: this.data.meetingDate,
-        meetingAmPm: 'AM',
-        meetingHour: this.data.meetingDate.getHours(),
-        meetingMinute: this.data.meetingDate.getMinutes(),
+        meetingTitle: meetingData[this.data].meetingTitle,
+        meetingDate: meetingData[this.data].meetingDate,
+        meetingAmPm: '오전',
+        meetingHour: meetingData[this.data].meetingDate.getHours(),
+        meetingMinute: meetingData[this.data].meetingDate.getMinutes(),
       });
     }
   }
@@ -75,13 +99,17 @@ export class MeetingEditComponent {
     if (this.editMeetingForm.valid) {
       const formValue = this.editMeetingForm.value;
 
-      // // // PM이고 12시인 경우만 12시이고 그 외의 PM은 +12를 해줌 (ex: PM 11 -> 23)
       if (formValue.meetingHour) {
-        if (formValue.meetingAmPm == 'PM' && formValue.meetingHour != 12)
+        // PM이고 12시인 경우만 12시이고 그 외의 PM은 +12를 해줌 (ex: PM 11 -> 23)
+        if (formValue.meetingAmPm == '오후' && formValue.meetingHour != 12) {
           formValue.meetingHour += 12;
-        // AM이고 12시인 경우 00시를 의미하므로 해당 case만 0으로 변경
-        if (formValue.meetingAmPm == 'AM' && formValue.meetingHour == 12)
+          // AM이고 12시인 경우 00시를 의미하므로 해당 case만 0으로 변경
+        } else if (
+          formValue.meetingAmPm == '오전' &&
+          formValue.meetingHour == 12
+        ) {
           formValue.meetingHour = 0;
+        }
       }
 
       const yymmdd = moment(formValue.meetingDate).format('YYYY-MM-DD');

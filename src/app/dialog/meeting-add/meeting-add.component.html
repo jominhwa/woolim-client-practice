@@ -3,44 +3,44 @@
 <form [formGroup]="addMeetingForm" novalidate>
 
     <mat-form-field appearance="outline">
-        <mat-label>Title</mat-label>
+        <mat-label>회의 제목</mat-label>
         <input matInput formControlName="meetingTitle" />
         <mat-error *ngIf="addMeetingForm.controls['meetingTitle'].hasError('required')">
-        Please enter title.
+        제목을 입력하세요.
         </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Date</mat-label>
+        <mat-label>회의 날짜</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="meetingDate" (dateChange)="datePickChange($event.value)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="addMeetingForm.controls['meetingDate'].hasError('required')">
-        Please enter date.
+        날짜를 입력하세요.
         </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Hour</mat-label>
+        <mat-label>오전/오후</mat-label>
+        <mat-select formControlName="meetingAmPm">
+            <mat-option *ngFor="let am_pm of am_pmList" [value]="am_pm.value">
+            {{ am_pm.value }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>시</mat-label>
         <mat-select formControlName="meetingHour">
             <mat-option *ngFor="let hour of hourList" [value]="hour.value">
             {{ hour.value }}
             </mat-option>
-        </mat-select>
-        </mat-form-field>
+    </mat-select>
+    </mat-form-field>
         <mat-form-field appearance="outline">
-        <mat-label>Minute</mat-label>
+        <mat-label>분</mat-label>
         <mat-select formControlName="meetingMinute">
             <mat-option *ngFor="let minute of minuteList" [value]="minute.value">
             {{ minute.value }}
-            </mat-option>
-        </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-        <mat-label>AM/PM</mat-label>
-        <mat-select formControlName="meetingAmPm">
-            <mat-option *ngFor="let am_pm of am_pmList" [value]="am_pm.value">
-            {{ am_pm.value }}
             </mat-option>
         </mat-select>
     </mat-form-field>

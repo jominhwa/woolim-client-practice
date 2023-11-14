@@ -1,0 +1,14 @@
+<div>투표 수정</div>
+
+<form [formGroup]="editVoteForm" novalidate>
+
+    <mat-form-field appearance="outline">
+        <mat-label>투표 안건</mat-label>
+        <input matInput formControlName="voteTitle" />
+        <mat-error *ngIf="editVoteForm.controls['voteTitle'].hasError('required')">
+        안건을 입력해주세요.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="editVote()">투표 수정</button>
+</form>

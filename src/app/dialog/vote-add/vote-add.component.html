@@ -1,0 +1,14 @@
+<div>투표 등록</div>
+
+<form [formGroup]="addVoteForm" novalidate>
+
+    <mat-form-field appearance="outline">
+        <mat-label>투표 안건</mat-label>
+        <input matInput formControlName="voteTitle" />
+        <mat-error *ngIf="addVoteForm.controls['voteTitle'].hasError('required')">
+        안건을 입력해주세요.
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button (click)="addVote()">투표 등록</button>
+</form>

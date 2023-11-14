@@ -16,17 +16,17 @@ export interface Meeting {
 
 let meetingData: Meeting[] = [
   {
-    _id: 1,
+    _id: 0,
     meetingTitle: '13회차 주간회의',
     meetingDate: new Date('2023-11-05T10:00:00'),
   },
   {
-    _id: 2,
+    _id: 1,
     meetingTitle: '14회차 주간회의',
     meetingDate: new Date('2023-11-13T11:00:00'),
   },
   {
-    _id: 3,
+    _id: 2,
     meetingTitle: '15회차 주간회의',
     meetingDate: new Date('2023-11-15T16:00:00'),
   },
@@ -62,7 +62,7 @@ export class MeetingListComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  AddMeeting() {
+  addMeeting() {
     const dialogRef = this.dialog.open(MeetingAddComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -74,9 +74,9 @@ export class MeetingListComponent {
     this.router.navigate([`/meeting/${_id}`]);
   }
 
-  editMeeting(data: any) {
+  editMeeting(_id: any) {
     const dialogRef = this.dialog.open(MeetingEditComponent, {
-      data: data,
+      data: _id,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
