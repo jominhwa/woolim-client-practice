@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialsModule } from 'src/app/materials/materials.module';
@@ -146,6 +146,8 @@ export class MeetingDetailComponent {
   fileDataSource = new MatTableDataSource<File>([]);
   voteDataSource = new MatTableDataSource<Vote>([]);
 
+  @ViewChild('minutesTextarea', { static: false }) minutesTextarea!: ElementRef;
+
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {
     this.meetingId = this.route.snapshot.params['meetingId'];
   }
@@ -160,6 +162,11 @@ export class MeetingDetailComponent {
     this.title = meetingData[this.meetingId].title;
     this.meetingtime = meetingData[this.meetingId].meetingtime;
     this.minutes = meetingData[this.meetingId].minutes;
+  }
+
+  saveMinutes() {
+    this.minutes = this.minutesTextarea.nativeElement.value;
+    console.log(this.minutes);
   }
 
   getFileList() {
