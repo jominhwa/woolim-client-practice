@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FileEditComponent } from 'src/app/dialog/file-edit/file-edit.component';
 import { VoteAddComponent } from 'src/app/dialog/vote-add/vote-add.component';
 import { VoteEditComponent } from 'src/app/dialog/vote-edit/vote-edit.component';
+import { VoteDetailComponent } from 'src/app/dialog/vote-detail/vote-detail.component';
 
 export interface Meeting {
   _id: any;
@@ -165,6 +166,16 @@ export class MeetingDetailComponent {
 
   addVote() {
     const dialogRef = this.dialog.open(VoteAddComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getVoteList();
+    });
+  }
+
+  detailVote(_id: any) {
+    const dialogRef = this.dialog.open(VoteDetailComponent, {
+      data: _id,
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       this.getVoteList();
