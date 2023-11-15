@@ -12,10 +12,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./vote-add.component.scss'],
 })
 export class VoteAddComponent {
-  displayedColumns: string[] = ['voteTitle'];
+  displayedColumns: string[] = ['title'];
 
   addVoteForm = new FormGroup({
-    voteTitle: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
   });
 
   constructor(public dialogRef: MatDialogRef<VoteAddComponent>) {}

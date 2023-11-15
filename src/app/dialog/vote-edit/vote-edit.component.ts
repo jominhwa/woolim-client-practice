@@ -5,25 +5,25 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MaterialsModule } from 'src/app/materials/materials.module';
 
 export interface Vote {
-  _id: any;
-  voteTitle: any;
-  createdAt: any;
+  _id: string;
+  title: string;
+  createdAt: Date;
 }
 
 let voteData: Vote[] = [
   {
-    _id: 0,
-    voteTitle: '투표1',
+    _id: '0',
+    title: '투표1',
     createdAt: new Date('2023-11-05T08:00:00'),
   },
   {
-    _id: 1,
-    voteTitle: '투표2',
+    _id: '1',
+    title: '투표2',
     createdAt: new Date('2023-11-04T16:00:00'),
   },
   {
-    _id: 2,
-    voteTitle: '투표3',
+    _id: '2',
+    title: '투표3',
     createdAt: new Date('2023-11-03T11:00:00'),
   },
 ];
@@ -36,10 +36,10 @@ let voteData: Vote[] = [
   styleUrls: ['./vote-edit.component.scss'],
 })
 export class VoteEditComponent {
-  displayedColumns: string[] = ['voteTitle'];
+  displayedColumns: string[] = ['title'];
 
   editVoteForm = new FormGroup({
-    voteTitle: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
   });
 
   constructor(

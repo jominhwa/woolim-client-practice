@@ -13,13 +13,11 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./meeting-add.component.scss'],
 })
 export class MeetingAddComponent {
-  displayedColumns: string[] = ['meetingTitle', 'meetingDate', 'meetingTime'];
-
-  today = new Date();
+  displayedColumns: string[] = ['title', 'meetingtime', 'meetingTime'];
 
   addMeetingForm = new FormGroup({
-    meetingTitle: new FormControl('', [Validators.required]),
-    meetingDate: new FormControl(this.today, [Validators.required]),
+    title: new FormControl('', [Validators.required]),
+    meetingtime: new FormControl(new Date(), [Validators.required]),
     meetingHour: new FormControl(12),
     meetingMinute: new FormControl(0),
     meetingAmPm: new FormControl('오후'),
@@ -61,15 +59,15 @@ export class MeetingAddComponent {
         }
       }
 
-      const yymmdd = moment(formValue.meetingDate).format('YYYY-MM-DD');
+      const yymmdd = moment(formValue.meetingtime).format('YYYY-MM-DD');
 
-      const meetingDate = new Date(
+      const meetingtime = new Date(
         `${yymmdd} ${formValue.meetingHour}:${formValue.meetingMinute}`
       );
 
       let setMeeting = {
-        meetingTitle: formValue.meetingTitle,
-        meetingDate: meetingDate,
+        title: formValue.title,
+        meetingtime: meetingtime,
       };
       console.log(setMeeting);
       this.dialogRef.close();
@@ -77,6 +75,6 @@ export class MeetingAddComponent {
   }
 
   datePickChange(dateValue: any) {
-    this.addMeetingForm.get('meetingDate')?.setValue(dateValue);
+    this.addMeetingForm.get('meetingtime')?.setValue(dateValue);
   }
 }

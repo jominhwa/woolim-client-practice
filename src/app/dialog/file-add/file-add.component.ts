@@ -12,10 +12,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./file-add.component.scss'],
 })
 export class FileAddComponent {
-  displayedColumns: string[] = ['fileTitle', 'file'];
+  displayedColumns: string[] = ['title', 'file'];
 
   addFileForm = new FormGroup({
-    fileTitle: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
   });
 

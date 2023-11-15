@@ -5,28 +5,28 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MaterialsModule } from 'src/app/materials/materials.module';
 
 export interface File {
-  _id: any;
-  fileTitle: any;
-  createdAt: any;
+  _id: string;
+  title: string;
+  createdAt: Date;
   file: any;
 }
 
 let fileData: File[] = [
   {
-    _id: 0,
-    fileTitle: '파일1',
+    _id: '0',
+    title: '파일1',
     createdAt: new Date('2023-10-08T12:00:00'),
     file: 1,
   },
   {
-    _id: 1,
-    fileTitle: '파일2',
+    _id: '1',
+    title: '파일2',
     createdAt: new Date('2023-10-15T14:00:00'),
     file: 2,
   },
   {
-    _id: 2,
-    fileTitle: '파일3',
+    _id: '2',
+    title: '파일3',
     createdAt: new Date('2023-10-23T17:00:00'),
     file: 3,
   },
@@ -40,10 +40,10 @@ let fileData: File[] = [
   styleUrls: ['./file-edit.component.scss'],
 })
 export class FileEditComponent {
-  displayedColumns: string[] = ['fileTitle', 'file'];
+  displayedColumns: string[] = ['title', 'file'];
 
   editFileForm = new FormGroup({
-    fileTitle: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
   });
 

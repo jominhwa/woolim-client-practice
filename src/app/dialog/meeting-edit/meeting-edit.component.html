@@ -4,18 +4,18 @@
 
     <mat-form-field appearance="outline">
         <mat-label>회의 제목</mat-label>
-        <input matInput formControlName="meetingTitle" />
-        <mat-error *ngIf="editMeetingForm.controls['meetingTitle'].hasError('required')">
+        <input matInput formControlName="title" />
+        <mat-error *ngIf="editMeetingForm.controls['title'].hasError('required')">
         제목을 입력하세요.
         </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>회의 날짜</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="meetingDate" (dateChange)="datePickChange($event.value)">
+        <input matInput [matDatepicker]="picker" formControlName="meetingtime" (dateChange)="datePickChange($event.value)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="editMeetingForm.controls['meetingDate'].hasError('required')">
+        <mat-error *ngIf="editMeetingForm.controls['meetingtime'].hasError('required')">
         날짜를 입력하세요.
         </mat-error>
     </mat-form-field>

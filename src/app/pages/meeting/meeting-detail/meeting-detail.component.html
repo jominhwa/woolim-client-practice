@@ -1,5 +1,5 @@
-<div>{{meetingTitle}}</div>
-<div>{{meetingDate | date: 'y년 MM월 d일 HH시 m분'}}</div>
+<div>{{title}}</div>
+<div>{{meetingtime | date: 'y년 MM월 d일 HH시 m분'}}</div>
 
 <button mat-flat-button>회의실 오픈</button>
 
@@ -8,7 +8,7 @@
 
     <mat-form-field class="example-full-width">
         <mat-label>회의록을 작성해주세요</mat-label>
-        <textarea matInput placeholder="Ex. 오늘 회의에서는 ..."></textarea>
+        <textarea matInput placeholder="Ex. 오늘 회의에서는 ...">{{minutes}}</textarea>
     </mat-form-field>
 </div>
 
@@ -23,30 +23,30 @@
             <td mat-cell *matCellDef="let element"> {{element?.createdAt | date: 'y.MM.dd'}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="fileTitle">
+        <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> 제목 </th>
-        <td mat-cell *matCellDef="let element"> {{element.fileTitle}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
         </ng-container>
     
         <ng-container matColumnDef="download">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <div>다운로드</div>
-                <!-- <div (click)="downloadFile()">다운로드</div> -->
+                <button mat-flat-button>다운로드</button>
+                <!-- <button mat-flat-button (click)="downloadFile()">다운로드</button> -->
             </td>
         </ng-container>
 
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <div (click)="editFile(element._id)">수정</div>
+                <button mat-flat-button (click)="editFile(element._id)">수정</button>
             </td>
         </ng-container>
     
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <div (click)="deleteFile(element._id)">삭제</div>
+                <button mat-flat-button (click)="deleteFile(element._id)">삭제</button>
             </td>
         </ng-container>
     
@@ -67,34 +67,43 @@
 
     <table mat-table [dataSource]="voteDataSource">
 
+        <ng-container matColumnDef="result">
+            <th mat-header-cell *matHeaderCellDef> 결과 </th>
+            <td mat-cell *matCellDef="let element"> 
+                <div *ngIf="element.status === 'Closed'">
+                    <mat-chip>{{element.finalResult}}</mat-chip>
+                </div>
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="createdAt">
             <th mat-header-cell *matHeaderCellDef> 날짜 </th>
             <td mat-cell *matCellDef="let element"> {{element?.createdAt | date: 'y.MM.dd'}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="voteTitle">
+        <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> 제목 </th>
-        <td mat-cell *matCellDef="let element"> {{element.voteTitle}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
         </ng-container>
     
         <ng-container matColumnDef="detail">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <div (click)="detailVote(element._id)">상세페이지</div>
+                <button mat-flat-button (click)="detailVote(element._id)">상세페이지</button>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <div (click)="editVote(element._id)">수정</div>
+            <td mat-cell *matCellDef="let element" >
+                <button mat-flat-button *ngIf="element.status === 'Pending'" (click)="editVote(element._id)">수정</button>
             </td>
         </ng-container>
     
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <div (click)="deleteVote(element._id)">삭제</div>
+                <button mat-flat-button *ngIf="element.status === 'Pending'" (click)="deleteVote(element._id)">삭제</button>
             </td>
         </ng-container>
     

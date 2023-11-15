@@ -9,26 +9,26 @@ import { MeetingEditComponent } from 'src/app/dialog/meeting-edit/meeting-edit.c
 import { Router } from '@angular/router';
 
 export interface Meeting {
-  _id: any;
-  meetingTitle: any;
-  meetingDate: any;
+  _id: string;
+  title: string;
+  meetingtime: Date;
 }
 
 let meetingData: Meeting[] = [
   {
-    _id: 0,
-    meetingTitle: '13회차 주간회의',
-    meetingDate: new Date('2023-11-05T10:00:00'),
+    _id: '0',
+    title: '13회차 주간회의',
+    meetingtime: new Date('2023-11-05T10:00:00'),
   },
   {
-    _id: 1,
-    meetingTitle: '14회차 주간회의',
-    meetingDate: new Date('2023-11-13T11:00:00'),
+    _id: '1',
+    title: '14회차 주간회의',
+    meetingtime: new Date('2023-11-13T11:00:00'),
   },
   {
-    _id: 2,
-    meetingTitle: '15회차 주간회의',
-    meetingDate: new Date('2023-11-15T16:00:00'),
+    _id: '2',
+    title: '15회차 주간회의',
+    meetingtime: new Date('2023-11-15T16:00:00'),
   },
 ];
 
@@ -41,8 +41,8 @@ let meetingData: Meeting[] = [
 })
 export class MeetingListComponent {
   displayedColumns: string[] = [
-    'meetingDate',
-    'meetingTitle',
+    'meetingtime',
+    'title',
     'detail',
     'edit',
     'delete',

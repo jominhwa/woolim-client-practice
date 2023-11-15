@@ -6,26 +6,26 @@ import { MaterialsModule } from 'src/app/materials/materials.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface Meeting {
-  _id: any;
-  meetingTitle: any;
-  meetingDate: any;
+  _id: string;
+  title: string;
+  meetingtime: Date;
 }
 
 let meetingData: Meeting[] = [
   {
-    _id: 0,
-    meetingTitle: '13회차 주간회의',
-    meetingDate: new Date('2023-11-05T10:00:00'),
+    _id: '0',
+    title: '13회차 주간회의',
+    meetingtime: new Date('2023-11-05T10:00:00'),
   },
   {
-    _id: 1,
-    meetingTitle: '14회차 주간회의',
-    meetingDate: new Date('2023-11-13T11:00:00'),
+    _id: '1',
+    title: '14회차 주간회의',
+    meetingtime: new Date('2023-11-13T11:00:00'),
   },
   {
-    _id: 2,
-    meetingTitle: '15회차 주간회의',
-    meetingDate: new Date('2023-11-15T16:00:00'),
+    _id: '2',
+    title: '15회차 주간회의',
+    meetingtime: new Date('2023-11-15T16:00:00'),
   },
 ];
 
@@ -37,13 +37,11 @@ let meetingData: Meeting[] = [
   styleUrls: ['./meeting-edit.component.scss'],
 })
 export class MeetingEditComponent {
-  displayedColumns: string[] = ['meetingTitle', 'meetingDate', 'meetingTime'];
-
-  today = new Date();
+  displayedColumns: string[] = ['title', 'meetingtime', 'meetingTime'];
 
   editMeetingForm = new FormGroup({
-    meetingTitle: new FormControl('', [Validators.required]),
-    meetingDate: new FormControl(this.today, [Validators.required]),
+    title: new FormControl('', [Validators.required]),
+    meetingtime: new FormControl(new Date(), [Validators.required]),
     meetingHour: new FormControl(12),
     meetingMinute: new FormControl(0),
     meetingAmPm: new FormControl('오후'),
@@ -76,21 +74,21 @@ export class MeetingEditComponent {
   }
 
   getMeeting() {
-    if (meetingData[this.data].meetingDate.getHours() > 12) {
+    if (meetingData[this.data].meetingtime.getHours() > 12) {
       this.editMeetingForm.patchValue({
-        meetingTitle: meetingData[this.data].meetingTitle,
-        meetingDate: meetingData[this.data].meetingDate,
+        title: meetingData[this.data].title,
+        meetingtime: meetingData[this.data].meetingtime,
         meetingAmPm: '오후',
-        meetingHour: meetingData[this.data].meetingDate.getHours() - 12,
-        meetingMinute: meetingData[this.data].meetingDate.getMinutes(),
+        meetingHour: meetingData[this.data].meetingtime.getHours() - 12,
+        meetingMinute: meetingData[this.data].meetingtime.getMinutes(),
       });
     } else {
       this.editMeetingForm.patchValue({
-        meetingTitle: meetingData[this.data].meetingTitle,
-        meetingDate: meetingData[this.data].meetingDate,
+        title: meetingData[this.data].title,
+        meetingtime: meetingData[this.data].meetingtime,
         meetingAmPm: '오전',
-        meetingHour: meetingData[this.data].meetingDate.getHours(),
-        meetingMinute: meetingData[this.data].meetingDate.getMinutes(),
+        meetingHour: meetingData[this.data].meetingtime.getHours(),
+        meetingMinute: meetingData[this.data].meetingtime.getMinutes(),
       });
     }
   }
@@ -112,15 +110,15 @@ export class MeetingEditComponent {
         }
       }
 
-      const yymmdd = moment(formValue.meetingDate).format('YYYY-MM-DD');
+      const yymmdd = moment(formValue.meetingtime).format('YYYY-MM-DD');
 
-      const meetingDate = new Date(
+      const meetingtime = new Date(
         `${yymmdd} ${formValue.meetingHour}:${formValue.meetingMinute}`
       );
 
       let setMeeting = {
-        meetingTitle: formValue.meetingTitle,
-        meetingDate: meetingDate,
+        title: formValue.title,
+        meetingtime: meetingtime,
       };
       console.log(setMeeting);
       this.dialogRef.close();
@@ -128,6 +126,6 @@ export class MeetingEditComponent {
   }
 
   datePickChange(dateValue: any) {
-    this.editMeetingForm.get('meetingDate')?.setValue(dateValue);
+    this.editMeetingForm.get('meetingtime')?.setValue(dateValue);
   }
 }

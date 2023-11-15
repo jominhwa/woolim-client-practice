@@ -3,18 +3,18 @@
 <form [formGroup]="addFileForm" novalidate>
 
     <mat-form-field appearance="outline">
-        <mat-label>파일 제목</mat-label>
-        <input matInput formControlName="fileTitle" />
-        <mat-error *ngIf="addFileForm.controls['fileTitle'].hasError('required')">
+        <mat-label>문서 제목</mat-label>
+        <input matInput formControlName="title" />
+        <mat-error *ngIf="addFileForm.controls['title'].hasError('required')">
         제목을 입력해주세요.
         </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>파일</mat-label>
+        <mat-label>문서</mat-label>
         <input matInput formControlName="file" />
         <mat-error *ngIf="addFileForm.controls['file'].hasError('required')">
-        파일을 올려주세요.
+        문서를 올려주세요.
         </mat-error>
     </mat-form-field>
 
